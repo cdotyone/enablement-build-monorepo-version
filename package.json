@@ -1,0 +1,16 @@
+{
+  "name": "enablement-build-monorepo-version",
+  "version": "1.0.1",
+  "description": "This detects changes in the children packages of a monorepo.",
+  "type": "module",
+  "module": "./index.mjs",
+  "bin": "./index.mjs",
+  "license": "MIT",
+  "author": "Chris Doty",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "minimatch": "~5.1.2"
+  }
+}

@@ -178,7 +178,7 @@ async function main(options) {
                 if(options.version) {
                   if(options.debug) console.log(results[i]);
                   let safeName = results[i].value.name;
-                  safeName=safeName.replace(/-/g,'_');
+                  safeName = safeName.replace(/-/g, '').replace(/_/g, '').replace(/\./g, '');
                   if(results[i].value.changed) {
                     console.log(`##vso[task.setvariable variable=${safeName};isoutput=true;]${results[i].value.version}`);
                     if(options.saveVersion) {

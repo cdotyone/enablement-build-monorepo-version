@@ -152,7 +152,7 @@ async function main(options) {
             }
             previous=JSON.parse(data);
 
-            if(options.changed || options.version) {
+            if(options.changed || options.version || options.tag) {
 
               let dependencies={};
               if(options.dependencies) {
@@ -206,8 +206,9 @@ async function main(options) {
                   }));
                 }
               }
-              if(plist.length>0 && options.debug) {
-                console.log(await Promise.allSettled(plist));
+              if(plist.length>0) {
+                let result = await Promise.allSettled(plist)
+                if(options.debug) console.log(result);
               }
             }
 

@@ -190,7 +190,9 @@ async function main(options) {
                 }
                 if(options.tag) {
                   plist.push(new Promise((resolve,reject)=>{
-                    let rev=results[i].value.name+'@'+results[i].value.version;
+                    let v = results[i].value.version;
+                    if(!v) v=getCurrentVersion(options.prefixPath,packageFolder,results[i].value.name)?.version;
+                    let rev=results[i].value.name+'@'+v;
                     exec(`git describe --tags ${rev}`, (err, tag, stderr) => {
                       if (err) {
                           exec(`git tag ${rev} -m "${rev}"`, (err, tag, stderr) => {

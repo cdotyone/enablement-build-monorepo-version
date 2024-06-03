@@ -193,9 +193,10 @@ async function main(options) {
                     let v = results[i].value.version;
                     if(!v) v=getCurrentVersion(options.prefixPath,packageFolder,results[i].value.name)?.version;
                     let rev=results[i].value.name+'@'+v;
-                    exec(`git describe --tags ${rev}`, (err, tag, stderr) => {
+                    v=results[i].value.name+'/'+v;
+                    exec(`git describe --tags ${v}`, (err, tag, stderr) => {
                       if (err) {
-                          exec(`git tag ${rev} -m "${rev}"`, (err, tag, stderr) => {
+                          exec(`git tag ${v} -m "${rev}"`, (err, tag, stderr) => {
                             if (err) {
                                 reject(err);
                                 return;

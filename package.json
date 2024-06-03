@@ -1,6 +1,6 @@
 {
   "name": "enablement-build-monorepo-version",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "This detects changes in the children packages of a monorepo.",
   "type": "module",
   "module": "./index.mjs",

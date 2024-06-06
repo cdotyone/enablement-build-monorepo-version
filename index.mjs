@@ -172,7 +172,6 @@ async function main(options) {
                   changeList.push(results[i].value.name)
               }
 
-              let plist=[];
               for(let i=0;i<results.length;i++) {
                 if(results[i].value.packageFolder!==packageFolder) continue;
                 if(options.version) {
@@ -182,14 +181,14 @@ async function main(options) {
                   if(results[i].value.changed) {
                     console.log(`##vso[task.setvariable variable=${safeName};isoutput=true;]${results[i].value.version}`);
                     if(options.saveVersion) {
-                      plist.push(updateVersion(packageFolder,results[i].value.name,results[i].value.version));
+                      scanlist.push(updateVersion(packageFolder,results[i].value.name,results[i].value.version));
                     }
                   } else {
                     console.log(`##vso[task.setvariable variable=${safeName};isoutput=true;]${results[i].value.previous}`);
                   }
                 }
                 if(options.tag) {
-                  plist.push(new Promise((resolve,reject)=>{
+                  scanlist.push(new Promise((resolve,reject)=>{
                     let v = results[i].value.version;
                     if(!v) v=getCurrentVersion(options.prefixPath,packageFolder,results[i].value.name)?.version;
                     let rev=results[i].value.name+'@'+v;
@@ -208,10 +207,6 @@ async function main(options) {
                     });
                   }));
                 }
-              }
-              if(plist.length>0) {
-                let result = await Promise.allSettled(plist)
-                if(options.debug) console.log(result);
               }
             }
 
@@ -243,7 +238,6 @@ async function main(options) {
         console.log(`CHANGED - ${JSON.stringify(changeList)}`);
         console.log(`##vso[task.setvariable variable=changed;isoutput=true]${JSON.stringify(changeList)}`);
       }
-
       mainResolve("DONE");
     },mainreject);
   });
@@ -301,6 +295,7 @@ if (process.argv.length === 2) {
       const text = await main(options);
       console.log(text);
   } catch (e) {
+      console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
       console.log(e);
       process.exit(1);
   }

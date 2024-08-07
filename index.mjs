@@ -100,7 +100,7 @@ async function compare(packageFolder, previous,current,dependencies,options) {
           let d = dependencies[fullName];
           for(let i=0;i<d.length;i++) {
             let depName = nameMap[d[i]];
-            plist.push(buildResult(packageFolder,depName,current[depName].version,"CHANGED",options));
+            if(current[depName]) plist.push(buildResult(packageFolder,depName,current[depName].version,"CHANGED",options));
           }
         }
       } else {

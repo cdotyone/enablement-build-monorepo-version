@@ -280,6 +280,7 @@ if (process.argv.length === 2) {
     if(argv[i].substring(0,2)==="--") {
       let name = argv[i].substring(2);
       if(options[name]!==undefined) {
+          if(name==="children") argv[i+1]=argv[i+1].replace(/\s/g,',');
           options[name] = argv[i+1];
           i++;
       } else {
